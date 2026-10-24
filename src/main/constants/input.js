@@ -72,3 +72,7 @@ export const PLAYER_LIGHT_COLORS = [
 ];
 export const UNASSIGNED_LIGHT_COLOR = [40, 40, 40];
 export const DUALSENSE_PLAYER_LEDS = [0b00100, 0b01010, 0b10101, 0b11011];
+
+export const COMBO_RECORD_POLL_MS = 30;
+export const COMBO_RECORD_STABLE_MS = 1500;
+export const COMBO_RECORD_TIMEOUT_MS = 15000;

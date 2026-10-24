@@ -53,8 +53,16 @@ const bindXInputFunctions = () => {
       return library.func('__stdcall', 'XInputGetState', 'uint32', ['uint32', stateOutput]);
     }
   };
+  const bindEnable = () => {
+    try {
+      return library.func('__stdcall', 'XInputEnable', 'void', ['int']);
+    } catch {
+      return null;
+    }
+  };
   return {
     getState: bindGetState(),
+    enable: bindEnable(),
     setState: library.func('__stdcall', 'XInputSetState', 'uint32', [
       'uint32',
       koffi.pointer(vibrationStruct),
@@ -102,6 +110,7 @@ export const createXInputReader = () => {
 
   const readSlots = (now = Date.now()) => {
     if (!functions) return Array(XINPUT_SLOT_COUNT).fill(null);
+    functions.enable?.(1);
     return connectedSlots.map((_, slot) => readSlot(slot, now));
   };
 

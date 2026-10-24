@@ -311,7 +311,14 @@ const ROW_CLICK_HANDLERS = {
   range: (row, event, element) => {
     if (event.target.closest('.rng-reset')) resetRange(element, row);
   },
-  select: (row) => adjustRow(row, 'right'),
+  select: async (row) => {
+    if (!row.run) {
+      adjustRow(row, 'right');
+      return;
+    }
+    playSound('select');
+    await row.run();
+  },
   text: async (row, event) => {
     if (event.target.tagName === 'INPUT') return;
     await editRowText(row);
